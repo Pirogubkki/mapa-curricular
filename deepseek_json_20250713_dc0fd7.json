@@ -1,0 +1,297 @@
+[
+  {
+    "semester": "1",
+    "subjects": [
+      {
+        "name": "Química general y bioinorgánica",
+        "credits": 8,
+        "requirements": []
+      },
+      {
+        "name": "Física e introducción a la fisicoquímica",
+        "credits": 8,
+        "requirements": []
+      },
+      {
+        "name": "Matemáticas para químicos",
+        "credits": 8,
+        "requirements": []
+      },
+      {
+        "name": "Normatividad y legislación",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Contexto de la profesión",
+        "credits": 4,
+        "requirements": []
+      },
+      {
+        "name": "Responsabilidad social universitaria",
+        "credits": 6,
+        "requirements": []
+      }
+    ]
+  },
+  {
+    "semester": "2",
+    "subjects": [
+      {
+        "name": "Química orgánica en la salud",
+        "credits": 10,
+        "requirements": ["Química general y bioinorgánica"]
+      },
+      {
+        "name": "Fisicoquímica aplicada a la salud",
+        "credits": 10,
+        "requirements": ["Matemáticas para químicos"]
+      },
+      {
+        "name": "Laboratorio de química básica",
+        "credits": 8,
+        "requirements": ["Química general y bioinorgánica"]
+      },
+      {
+        "name": "Cultura maya",
+        "credits": 6,
+        "requirements": ["Responsabilidad social universitaria"]
+      },
+      {
+        "name": "Estadística",
+        "credits": 6,
+        "requirements": []
+      }
+    ]
+  },
+  {
+    "semester": "3",
+    "subjects": [
+      {
+        "name": "Química bioorgánica",
+        "credits": 6,
+        "requirements": ["Química orgánica en la salud"]
+      },
+      {
+        "name": "Análisis químico",
+        "credits": 9,
+        "requirements": []
+      },
+      {
+        "name": "Laboratorio de química biológica",
+        "credits": 7,
+        "requirements": []
+      },
+      {
+        "name": "Biología celular y molecular",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Administración y gestión en ciencias de la salud",
+        "credits": 5,
+        "requirements": []
+      },
+      {
+        "name": "Control y aseguramiento de la Calidad",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Optativa 1 o Libre",
+        "credits": 0,
+        "requirements": ["Haber acumulado 80 créditos"]
+      }
+    ]
+  },
+  {
+    "semester": "4",
+    "subjects": [
+      {
+        "name": "Laboratorio de análisis químico",
+        "credits": 8,
+        "requirements": ["Análisis químico"]
+      },
+      {
+        "name": "Salud pública y epidemiológica",
+        "credits": 5,
+        "requirements": []
+      },
+      {
+        "name": "Farmacognosía",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Bioquímica estructural y metabólica",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Farmacoquímica",
+        "credits": 6,
+        "requirements": ["Química bioorgánica"]
+      },
+      {
+        "name": "Anatomía para químicos",
+        "credits": 6,
+        "requirements": []
+      }
+    ]
+  },
+  {
+    "semester": "5",
+    "subjects": [
+      {
+        "name": "Análisis instrumental",
+        "credits": 9,
+        "requirements": ["Análisis químico"]
+      },
+      {
+        "name": "Farmacología básica",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Fisiología y patología humana",
+        "credits": 8,
+        "requirements": ["Anatomía para químicos"]
+      },
+      {
+        "name": "Genética",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Laboratorio de análisis fisicoquímicos",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Filosofía y metodología de las ciencias",
+        "credits": 4,
+        "requirements": ["Estadística"]
+      }
+    ]
+  },
+  {
+    "semester": "6",
+    "subjects": [
+      {
+        "name": "Laboratorio de análisis instrumental",
+        "credits": 8,
+        "requirements": ["Análisis instrumental"]
+      },
+      {
+        "name": "Farmacología aplicada",
+        "credits": 8,
+        "requirements": ["Farmacología básica"]
+      },
+      {
+        "name": "Hematología",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Bacteriología",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Laboratorio de microbiología general",
+        "credits": 8,
+        "requirements": []
+      },
+      {
+        "name": "Optativa 2 o Libre",
+        "credits": 0,
+        "requirements": ["Haber acumulado 80 créditos"]
+      }
+    ]
+  },
+  {
+    "semester": "7",
+    "subjects": [
+      {
+        "name": "Laboratorio de análisis farmacéutico",
+        "credits": 6,
+        "requirements": ["Laboratorio de análisis instrumental"]
+      },
+      {
+        "name": "Micología y Virología",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Toxicología",
+        "credits": 5,
+        "requirements": []
+      },
+      {
+        "name": "Parasitología",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Immunología",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Laboratorio de análisis microbiológicos",
+        "credits": 10,
+        "requirements": ["Laboratorio de microbiología general"]
+      }
+    ]
+  },
+  {
+    "semester": "8",
+    "subjects": [
+      {
+        "name": "Tecnología farmacéutica",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Laboratorio de biociencias",
+        "credits": 6,
+        "requirements": []
+      },
+      {
+        "name": "Laboratorio de química clínica",
+        "credits": 10,
+        "requirements": []
+      },
+      {
+        "name": "Atención farmacéutica",
+        "credits": 6,
+        "requirements": []
+      }
+    ]
+  },
+  {
+    "semester": "9",
+    "subjects": [
+      {
+        "name": "Práctica profesional",
+        "credits": 5,
+        "requirements": ["Haber acumulado 298 créditos"]
+      },
+      {
+        "name": "Taller de emprendedores",
+        "credits": 5,
+        "requirements": []
+      }
+    ]
+  },
+  {
+    "semester": "10",
+    "subjects": [
+      {
+        "name": "Servicio social",
+        "credits": 12,
+        "requirements": ["Haber acumulado 303 créditos"]
+      }
+    ]
+  }
+]
