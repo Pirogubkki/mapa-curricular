@@ -281,8 +281,8 @@
             display: flex;
             flex-direction: column;
             gap: var(--semester-gap);
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
+            overflow-y: visible;
+            max-height: none;
         }
         
         .semester-row {
@@ -292,6 +292,7 @@
             overflow: hidden;
             position: relative;
             border: 1px solid #e0e0e0;
+            margin-bottom: 50px;
         }
         
         .semester-header {
@@ -494,6 +495,29 @@
             font-size: 1.05rem;
         }
         
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            text-align: right;
+            color: #666;
+        }
+        
         @media (max-width: 1200px) {
             .app-container {
                 grid-template-columns: 1fr;
@@ -547,22 +571,17 @@
             }
             
             :root {
-                --semester-gap: 30px;
+                --semester-gap: 40px;
             }
-            :root {
-    --semester-gap: 200px; /* Aumenta el espacio entre semestres */
-}
-
-/* Agrega margen inferior adicional a cada semestre */
-.semester-row {
-    margin-bottom: 100px;
-}
-
-/* Permite que el contenedor crezca sin recorte vertical */
-.semesters-container {
-    overflow-y: visible;
-    max-height: none;
-}
+            
+            .semester-row {
+                margin-bottom: 25px;
+            }
+            
+            .subject {
+                min-height: auto;
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
@@ -576,6 +595,10 @@
                 <div class="credit-counter">
                     <h3>Créditos Acumulados</h3>
                     <div id="total-credits">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">0% completado</div>
                 </div>
             </div>
             
@@ -626,7 +649,7 @@
         <!-- Contenido principal -->
         <main class="content">
             <header>
-                <h1><i class="fas fa-book-open"></i> Malla Curricular - QFB</h1>
+                <h1><i class="fas fa-book-open"></i> Malla Curricular - Química en Ciencias de la Salud</h1>
                 <p>Plan de estudios interactivo con seguimiento de créditos y requisitos</p>
                 
                 <div class="controls">
@@ -662,6 +685,8 @@
             const englishWarning = document.getElementById('english-warning');
             const totalCreditsEl = document.getElementById('total-credits');
             const notificationEl = document.getElementById('notification');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
             
             let showRequirements = true;
             let approvedSubjects = [];
@@ -774,6 +799,12 @@
 
             renderCurriculum();
             setupEventListeners();
+
+            function updateProgressBar() {
+                const percentage = Math.min(100, Math.round((totalCredits / totalProgramCredits) * 100));
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${percentage}% completado (${totalCredits}/${totalProgramCredits} créditos)`;
+            }
 
             function showNotification(message) {
                 notificationEl.textContent = message;
@@ -929,14 +960,21 @@
                     container.appendChild(semesterRow);
                 });
                 
+                // Actualizar barra de progreso
+                updateProgressBar();
+                
                 // Notificaciones por créditos acumulados
-                if (totalCredits >= 80) {
-                    showNotification("¡Felicidades! Has alcanzado 80 créditos. Ahora puedes realizar un intercambio interno.");
+                if (totalCredits >= 80 && totalCredits < 85) {
+                    showNotification("¡Felicidades! Has alcanzado 80 créditos. Ahora puedes tomar asignaturas optativas.");
                 }
                 
                 const sixtyPercent = totalProgramCredits * 0.6;
-                if (totalCredits >= sixtyPercent) {
+                if (totalCredits >= sixtyPercent && totalCredits < sixtyPercent + 5) {
                     showNotification(`¡Felicidades! Has alcanzado el 60% (${Math.round(sixtyPercent)} créditos) del programa. Ahora puedes realizar intercambios nacionales e internacionales.`);
+                }
+                
+                if (totalCredits >= 298 && totalCredits < 302) {
+                    showNotification("¡Felicidades! Has alcanzado 298 créditos. Ahora puedes iniciar tu práctica profesional.");
                 }
             }
 
@@ -1048,6 +1086,7 @@
                 approvedSubjects.push(name);
                 totalCredits += credits;
                 totalCreditsEl.textContent = totalCredits;
+                updateProgressBar();
                 
                 // Volver a renderizar todo para actualizar el estado de todas las materias
                 renderCurriculum();
@@ -1060,6 +1099,7 @@
                     totalCredits -= credits;
                     if (totalCredits < 0) totalCredits = 0;
                     totalCreditsEl.textContent = totalCredits;
+                    updateProgressBar();
                     
                     // Volver a renderizar todo para actualizar el estado de todas las materias
                     renderCurriculum();
