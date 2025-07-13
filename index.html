@@ -549,6 +549,20 @@
             :root {
                 --semester-gap: 30px;
             }
+            :root {
+    --semester-gap: 70px; /* Aumenta el espacio entre semestres */
+}
+
+/* Agrega margen inferior adicional a cada semestre */
+.semester-row {
+    margin-bottom: 40px;
+}
+
+/* Permite que el contenedor crezca sin recorte vertical */
+.semesters-container {
+    overflow-y: visible;
+    max-height: none;
+}
         }
     </style>
 </head>
