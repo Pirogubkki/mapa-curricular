@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malla Curricular Interactiva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
@@ -15,86 +23,77 @@
             --approved-color: #2ecc71;
             --disabled-color: #bdc3c7;
             --blocked-color: #e74c3c;
+            --info-bg: #f8f9fa;
+            --sidebar-width: 300px;
+            --info-panel-width: 280px;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
             color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
-            padding: 20px;
             min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
+        
         .main-container {
             display: flex;
+            max-width: 1800px;
+            width: 100%;
             gap: 20px;
-            max-width: 1600px;
-            margin: 0 auto;
         }
-
+        
         .sidebar {
-            width: 280px;
-            background: white;
-            border-radius: 15px;
+            width: var(--sidebar-width);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 20px;
-            height: fit-content;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
-
-        .content {
-            flex: 1;
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
+        
         .credit-counter {
-            margin-bottom: 30px;
             text-align: center;
             padding: 20px;
             background: linear-gradient(to right, #3498db, #2c3e50);
-            border-radius: 12px;
+            border-radius: 15px;
             color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
-
+        
         .credit-counter h2 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 15px;
             font-weight: 600;
         }
-
+        
         #total-credits {
             font-size: 3.5rem;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
-
+        
         .english-check {
-            margin-bottom: 30px;
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
+            background: var(--info-bg);
+            border-radius: 15px;
             border: 2px dashed #3498db;
         }
-
+        
         .english-check h2 {
             font-size: 1.4rem;
             margin-bottom: 20px;
             color: var(--primary);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
+        
         .english-check label {
             display: flex;
             align-items: center;
@@ -103,49 +102,77 @@
             margin-bottom: 20px;
             font-size: 1.1rem;
             font-weight: 500;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background 0.3s;
         }
-
+        
+        .english-check label:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
         .english-check input[type="checkbox"] {
             width: 24px;
             height: 24px;
             cursor: pointer;
             accent-color: #3498db;
         }
-
+        
         .warning {
             padding: 15px;
             background: linear-gradient(to right, #ff9a9e, #fad0c4);
             color: #721c24;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 500;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
+        
         .warning.hidden {
             display: none;
         }
-
+        
         .instructions {
             font-size: 1rem;
             color: #6c757d;
             padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: var(--info-bg);
+            border-radius: 15px;
             border-left: 4px solid #3498db;
         }
-
+        
         .instructions h3 {
             margin-bottom: 15px;
             color: var(--primary);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .instructions p {
+        
+        .instructions ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .instructions li {
             margin-bottom: 10px;
+            line-height: 1.5;
         }
-
+        
+        .content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -153,18 +180,19 @@
             background: linear-gradient(to right, #2c3e50, #4a6491);
             border-radius: 15px;
             color: white;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
-
+        
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
         }
-
+        
         .controls {
             display: flex;
             flex-wrap: wrap;
@@ -172,12 +200,12 @@
             align-items: center;
             gap: 15px;
             margin-top: 20px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 15px;
             border-radius: 10px;
             backdrop-filter: blur(5px);
         }
-
+        
         button {
             padding: 12px 25px;
             background: linear-gradient(to right, #3498db, #2c3e50);
@@ -188,18 +216,21 @@
             font-weight: bold;
             transition: all 0.3s ease;
             font-size: 1rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
+        
         button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-
+        
         #reset {
             background: linear-gradient(to right, #95a5a6, #7f8c8d);
         }
-
+        
         .legend {
             display: flex;
             flex-wrap: wrap;
@@ -207,40 +238,40 @@
             justify-content: center;
             margin-top: 15px;
         }
-
+        
         .legend-item {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 0.95rem;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 8px 15px;
             border-radius: 20px;
         }
-
+        
         .color-box {
             width: 18px;
             height: 18px;
             border-radius: 4px;
         }
-
+        
         .req { background-color: var(--req-color); }
         .dep { background-color: var(--dep-color); }
         .approved { background-color: var(--approved-color); }
         .blocked { background-color: var(--blocked-color); }
-
+        
         .semesters-container {
             display: flex;
             flex-direction: column;
             gap: 35px;
         }
-
+        
         .semester-row {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-
+        
         .semester-header {
             display: flex;
             align-items: center;
@@ -251,9 +282,9 @@
             border-radius: 10px;
             font-size: 1.3rem;
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
+        
         .semester-header .semester-number {
             background: white;
             color: #3498db;
@@ -265,14 +296,14 @@
             justify-content: center;
             font-weight: bold;
         }
-
+        
         .subjects-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             padding: 15px;
         }
-
+        
         .subject {
             background: #f8f9fa;
             border: 2px solid #dee2e6;
@@ -281,15 +312,15 @@
             transition: all 0.3s ease;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
-
+        
         .subject:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             border-color: var(--secondary);
         }
-
+        
         .subject.disabled {
             opacity: 0.7;
             background: repeating-linear-gradient(
@@ -301,23 +332,23 @@
             );
             cursor: not-allowed;
         }
-
+        
         .subject.blocked {
             background: linear-gradient(to bottom right, #ffebee, #ffcdd2);
             border-color: #e74c3c;
         }
-
+        
         .subject.disabled:hover {
             transform: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             border-color: #dee2e6;
         }
-
+        
         .subject.approved {
             background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);
             border-color: var(--approved-color);
         }
-
+        
         .subject h3 {
             color: var(--primary);
             margin-bottom: 12px;
@@ -325,7 +356,7 @@
             font-weight: 600;
             padding-right: 60px;
         }
-
+        
         .credits {
             position: absolute;
             top: 15px;
@@ -337,15 +368,15 @@
             font-size: 0.9rem;
             font-weight: bold;
         }
-
+        
         .subject.approved .credits {
             background: var(--approved-color);
         }
-
+        
         .subject.blocked .credits {
             background: var(--blocked-color);
         }
-
+        
         .requirements {
             margin-top: 15px;
             padding-top: 15px;
@@ -353,20 +384,20 @@
             font-size: 0.95rem;
             color: #666;
         }
-
+        
         .requirements strong {
             color: var(--primary);
         }
-
+        
         .requirements ul {
             margin-top: 8px;
             padding-left: 20px;
         }
-
+        
         .requirements li {
             margin-bottom: 5px;
         }
-
+        
         .english-block {
             display: inline-block;
             background: var(--blocked-color);
@@ -376,7 +407,7 @@
             font-size: 0.8rem;
             margin-left: 5px;
         }
-
+        
         #tooltip {
             position: fixed;
             background: rgba(0, 0, 0, 0.9);
@@ -390,30 +421,96 @@
             z-index: 1000;
             font-size: 1rem;
             line-height: 1.6;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-
+        
         .subject.req-highlight {
             background: rgba(230, 126, 34, 0.2);
             border: 2px solid var(--req-color);
         }
-
+        
         .subject.dep-highlight {
             background: rgba(39, 174, 96, 0.2);
             border: 2px solid var(--dep-color);
         }
-
-        @media (max-width: 1200px) {
+        
+        .info-panel {
+            background: var(--info-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+            border: 2px solid #3498db;
+        }
+        
+        .info-panel h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-panel p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background: #2c3e50;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            display: none;
+            font-weight: 500;
+            max-width: 400px;
+        }
+        
+        @media (max-width: 1600px) {
             .main-container {
                 flex-direction: column;
             }
             
             .sidebar {
                 width: 100%;
-                position: static;
             }
         }
-
+        
         @media (max-width: 768px) {
             .subjects-container {
                 grid-template-columns: 1fr;
@@ -435,7 +532,7 @@
                 font-size: 2.8rem;
             }
         }
-
+        
         footer {
             text-align: center;
             margin-top: 40px;
@@ -450,12 +547,12 @@
         <!-- Panel lateral izquierdo -->
         <aside class="sidebar">
             <div class="credit-counter">
-                <h2>Créditos Acumulados</h2>
+                <h2><i class="fas fa-coins"></i> Créditos Acumulados</h2>
                 <div id="total-credits">0</div>
             </div>
             
             <div class="english-check">
-                <h2>Requisito de Inglés</h2>
+                <h2><i class="fas fa-language"></i> Requisito de Inglés</h2>
                 <label>
                     <input type="checkbox" id="english-b1">
                     ¿Tienes un inglés igual o mayor a B1?
@@ -466,21 +563,36 @@
             </div>
             
             <div class="instructions">
-                <h3>Instrucciones:</h3>
-                <p>1. Haz clic en las materias para aprobarlas y acumular créditos</p>
-                <p>2. Las materias en verde están aprobadas</p>
-                <p>3. Las materias en rojo están bloqueadas por requisitos</p>
-                <p>4. Marca si tienes nivel B1 de inglés para desbloquear semestres avanzados</p>
+                <h3><i class="fas fa-info-circle"></i> Instrucciones:</h3>
+                <ul>
+                    <li>Haz clic en las materias para aprobarlas y acumular créditos</li>
+                    <li>Las materias en verde están aprobadas</li>
+                    <li>Las materias en rojo están bloqueadas por requisitos</li>
+                    <li>Marca si tienes nivel B1 de inglés para desbloquear semestres avanzados</li>
+                    <li>Haz clic en una materia aprobada para desaprobarla</li>
+                    <li>Para asignaturas libres, podrás ingresar tus créditos</li>
+                </ul>
+            </div>
+            
+            <div class="info-panel">
+                <h2><i class="fas fa-user"></i> Información del Programador</h2>
+                <p><i class="fas fa-graduation-cap"></i> Programado por: Br. Pool Héctor García</p>
+                <p><i class="fas fa-hashtag"></i> RRSS: IG: poolkiin</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                </div>
             </div>
         </aside>
 
         <!-- Contenido principal -->
         <div class="content">
             <header>
-                <h1> Malla Curricular - Químico Farmacéutico Biólogo </h1>
+                <h1><i class="fas fa-book-open"></i> Malla Curricular - Química en Ciencias de la Salud</h1>
                 <div class="controls">
-                    <button id="toggleRequirements">Mostrar/Ocultar Requisitos</button>
-                    <button id="reset">Reiniciar Progreso</button>
+                    <button id="toggleRequirements"><i class="fas fa-list-check"></i> Mostrar/Ocultar Requisitos</button>
+                    <button id="reset"><i class="fas fa-rotate-left"></i> Reiniciar Progreso</button>
                     <div class="legend">
                         <span class="legend-item"><div class="color-box req"></div> Requisito</span>
                         <span class="legend-item"><div class="color-box dep"></div> Dependencia</span>
@@ -495,9 +607,10 @@
     </div>
     
     <div id="tooltip"></div>
+    <div id="notification" class="notification"></div>
     
     <footer>
-        Malla Curricular Interactiva &copy; 2025 - Desarrollado por Br. Pool García Héctor (IG: poolkiin)
+        Malla Curricular Interactiva &copy; 2023 - Desarrollado para la carrera de Química en Ciencias de la Salud
     </footer>
     
     <script>
@@ -509,12 +622,14 @@
             const englishCheckbox = document.getElementById('english-b1');
             const englishWarning = document.getElementById('english-warning');
             const totalCreditsEl = document.getElementById('total-credits');
+            const notificationEl = document.getElementById('notification');
             
             let showRequirements = true;
             let approvedSubjects = [];
             let totalCredits = 0;
             let englishB1 = false;
             let curriculumData = [];
+            const totalProgramCredits = 303; // Total de créditos del programa
 
             // Datos de la malla curricular
             const curriculumDataRaw = [
@@ -619,7 +734,8 @@
                         {
                             "name": "Optativa 1 o Libre",
                             "credits": 0,
-                            "requirements": ["Haber acumulado 80 créditos"]
+                            "requirements": ["Haber acumulado 80 créditos"],
+                            "isOptional": true
                         }
                     ]
                 },
@@ -724,7 +840,8 @@
                         {
                             "name": "Optativa 2 o Libre",
                             "credits": 0,
-                            "requirements": ["Haber acumulado 80 créditos"]
+                            "requirements": ["Haber acumulado 80 créditos"],
+                            "isOptional": true
                         }
                     ]
                 },
@@ -819,6 +936,30 @@
             renderCurriculum();
             setupEventListeners();
 
+            function showNotification(message) {
+                notificationEl.textContent = message;
+                notificationEl.style.display = 'block';
+                setTimeout(() => {
+                    notificationEl.style.display = 'none';
+                }, 5000);
+            }
+
+            function checkFirstSecondSemestersApproved() {
+                // Verificar que todas las materias de 1er y 2do semestre estén aprobadas
+                const firstSemester = curriculumData.find(s => s.semester === "1");
+                const secondSemester = curriculumData.find(s => s.semester === "2");
+                
+                const allFirstSemesterApproved = firstSemester.subjects.every(subject => 
+                    approvedSubjects.includes(subject.name) || subject.credits === 0
+                );
+                
+                const allSecondSemesterApproved = secondSemester.subjects.every(subject => 
+                    approvedSubjects.includes(subject.name) || subject.credits === 0
+                );
+                
+                return allFirstSemesterApproved && allSecondSemesterApproved;
+            }
+
             function renderCurriculum() {
                 container.innerHTML = '';
                 
@@ -831,11 +972,14 @@
                     
                     // Verificar si el semestre está bloqueado por requisito de inglés
                     const isBlockedByEnglish = (semester.semester >= 7 && semester.semester <= 10 && !englishB1);
+                    // Verificar requisito adicional para semestres 7-10: aprobar todas las materias de 1er y 2do semestre
+                    const isBlockedBySemesters = (semester.semester >= 7 && semester.semester <= 10 && !checkFirstSecondSemestersApproved());
                     
                     semesterHeader.innerHTML = `
                         <div class="semester-number">${semester.semester}</div>
                         <div>${semester.semester}° Semestre</div>
                         ${isBlockedByEnglish ? '<div class="english-block">Requiere inglés B1</div>' : ''}
+                        ${isBlockedBySemesters ? '<div class="english-block">Requiere aprobar 1° y 2° semestre</div>' : ''}
                     `;
                     
                     semesterRow.appendChild(semesterHeader);
@@ -850,6 +994,7 @@
                         subjectEl.dataset.credits = subject.credits;
                         subjectEl.dataset.requirements = JSON.stringify(subject.requirements);
                         subjectEl.dataset.semester = semester.semester;
+                        subjectEl.dataset.isOptional = subject.isOptional || false;
                         
                         // Verificar si la materia está aprobada
                         if (approvedSubjects.includes(subject.name)) {
@@ -859,11 +1004,12 @@
                         // Verificar si se cumplen los requisitos
                         const requirementsMet = checkRequirements(subject.requirements);
                         
-                        // Verificar si el semestre está bloqueado por inglés
+                        // Verificar si el semestre está bloqueado por inglés o por no tener aprobados los primeros semestres
                         const blockedByEnglish = (semester.semester >= 7 && semester.semester <= 10 && !englishB1);
+                        const blockedBySemesters = (semester.semester >= 7 && semester.semester <= 10 && !checkFirstSecondSemestersApproved());
                         
-                        // Solo aplicar bloqueo por inglés a los semestres 7-10
-                        if (blockedByEnglish) {
+                        // Solo aplicar bloqueo por inglés o semestres a los semestres 7-10
+                        if (blockedByEnglish || blockedBySemesters) {
                             subjectEl.classList.add('disabled');
                             subjectEl.classList.add('blocked');
                         } else if (!requirementsMet) {
@@ -889,9 +1035,30 @@
                         
                         // Añadir evento de clic
                         subjectEl.addEventListener('click', () => {
-                            if (!subjectEl.classList.contains('disabled') && 
-                                !subjectEl.classList.contains('approved')) {
-                                approveSubject(subject.name, parseInt(subject.credits));
+                            if (subjectEl.classList.contains('disabled')) {
+                                return;
+                            }
+                            
+                            if (subjectEl.classList.contains('approved')) {
+                                // Desaprobar la materia
+                                unapproveSubject(subject.name, parseInt(subjectEl.dataset.credits));
+                            } else {
+                                // Materia es optativa/libre?
+                                if (subjectEl.dataset.isOptional === "true") {
+                                    const creditsInput = prompt("Ingrese la cantidad de créditos obtenidos en esta asignatura libre:");
+                                    const credits = parseInt(creditsInput);
+                                    
+                                    if (!isNaN(credits) && credits >= 0) {
+                                        // Actualizar créditos de la materia
+                                        subjectEl.dataset.credits = credits;
+                                        subjectEl.querySelector('.credits').textContent = credits + " créditos";
+                                        approveSubject(subject.name, credits);
+                                    } else {
+                                        alert("Por favor ingrese un número válido de créditos.");
+                                    }
+                                } else {
+                                    approveSubject(subject.name, parseInt(subject.credits));
+                                }
                             }
                         });
                         
@@ -901,6 +1068,16 @@
                     semesterRow.appendChild(subjectsContainer);
                     container.appendChild(semesterRow);
                 });
+                
+                // Notificaciones por créditos acumulados
+                if (totalCredits >= 80) {
+                    showNotification("¡Felicidades! Has alcanzado 80 créditos. Ahora puedes realizar un intercambio interno.");
+                }
+                
+                const sixtyPercent = totalProgramCredits * 0.6;
+                if (totalCredits >= sixtyPercent) {
+                    showNotification(`¡Felicidades! Has alcanzado el 60% (${Math.round(sixtyPercent)} créditos) del programa. Ahora puedes realizar intercambios nacionales e internacionales.`);
+                }
             }
 
             function setupEventListeners() {
@@ -1012,6 +1189,18 @@
                 
                 // Volver a renderizar todo para actualizar el estado de todas las materias
                 renderCurriculum();
+            }
+            
+            function unapproveSubject(name, credits) {
+                const index = approvedSubjects.indexOf(name);
+                if (index > -1) {
+                    approvedSubjects.splice(index, 1);
+                    totalCredits -= credits;
+                    totalCreditsEl.textContent = totalCredits;
+                    
+                    // Volver a renderizar todo para actualizar el estado de todas las materias
+                    renderCurriculum();
+                }
             }
         });
     </script>
