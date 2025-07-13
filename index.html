@@ -23,87 +23,89 @@
             --approved-color: #2ecc71;
             --disabled-color: #bdc3c7;
             --blocked-color: #e74c3c;
-            --info-bg: #f8f9fa;
-            --sidebar-width: 300px;
-            --info-panel-width: 280px;
+            --sidebar-bg: #f8f9fa;
+            --content-bg: #ffffff;
+            --header-gradient: linear-gradient(135deg, #1a2980, #26d0ce);
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background: #f0f2f5;
             color: #333;
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
         }
         
-        .main-container {
-            display: flex;
-            max-width: 1800px;
-            width: 100%;
+        .app-container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
             gap: 20px;
+            max-width: 1600px;
+            width: 100%;
         }
         
+        /* Panel lateral izquierdo */
         .sidebar {
-            width: var(--sidebar-width);
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
+            background: var(--sidebar-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             gap: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .panel-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .panel-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
         }
         
         .credit-counter {
             text-align: center;
-            padding: 20px;
-            background: linear-gradient(to right, #3498db, #2c3e50);
-            border-radius: 15px;
+            padding: 15px;
+            background: var(--header-gradient);
+            border-radius: 10px;
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
         
-        .credit-counter h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-weight: 600;
+        .credit-counter h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
         
         #total-credits {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
-            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .english-check {
-            padding: 20px;
-            background: var(--info-bg);
-            border-radius: 15px;
-            border: 2px dashed #3498db;
-        }
-        
-        .english-check h2 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .english-check label {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin: 15px 0;
             font-size: 1.1rem;
-            font-weight: 500;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 8px;
+            border-radius: 8px;
             transition: background 0.3s;
         }
         
@@ -112,43 +114,25 @@
         }
         
         .english-check input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
-            accent-color: #3498db;
+            accent-color: var(--secondary);
         }
         
         .warning {
-            padding: 15px;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4);
-            color: #721c24;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 500;
+            padding: 12px;
+            background: #ffebee;
+            color: #c62828;
+            border-radius: 8px;
+            font-size: 0.95rem;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ffcdd2;
+            margin-top: 10px;
         }
         
         .warning.hidden {
             display: none;
-        }
-        
-        .instructions {
-            font-size: 1rem;
-            color: #6c757d;
-            padding: 15px;
-            background: var(--info-bg);
-            border-radius: 15px;
-            border-left: 4px solid #3498db;
-        }
-        
-        .instructions h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .instructions ul {
@@ -157,101 +141,133 @@
         }
         
         .instructions li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             line-height: 1.5;
+            font-size: 0.95rem;
         }
         
-        .content {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .programmer-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .programmer-info p {
+            margin-bottom: 8px;
             display: flex;
-            flex-direction: column;
-            max-height: 95vh;
-            overflow-y: auto;
+            align-items: center;
+            gap: 8px;
         }
         
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 25px;
-            background: linear-gradient(to right, #2c3e50, #4a6491);
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            justify-content: center;
         }
         
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Contenido principal */
+        .content {
+            background: var(--content-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        header {
+            padding: 25px 30px;
+            background: var(--header-gradient);
+            color: white;
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
             gap: 15px;
+        }
+        
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
         }
         
         .controls {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             gap: 15px;
             margin-top: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 10px;
-            backdrop-filter: blur(5px);
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 12px;
         }
         
         button {
-            padding: 12px 25px;
-            background: linear-gradient(to right, #3498db, #2c3e50);
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 8px;
+            backdrop-filter: blur(5px);
         }
         
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        #reset {
-            background: linear-gradient(to right, #95a5a6, #7f8c8d);
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
         .legend {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 15px;
+            gap: 12px;
+            justify-content: flex-end;
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
+            gap: 6px;
+            font-size: 0.9rem;
             background: rgba(255, 255, 255, 0.2);
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 20px;
         }
         
         .color-box {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 4px;
         }
         
@@ -261,98 +277,95 @@
         .blocked { background-color: var(--blocked-color); }
         
         .semesters-container {
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 30px;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
         }
         
         .semester-row {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
         }
         
         .semester-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 15px;
-            background: linear-gradient(to right, #3498db, #2c3e50);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            gap: 12px;
         }
         
         .semester-header .semester-number {
             background: white;
-            color: #3498db;
-            width: 40px;
-            height: 40px;
+            color: var(--primary);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.1rem;
         }
         
         .subjects-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 15px;
+            gap: 18px;
+            padding: 20px;
         }
         
         .subject {
             background: #f8f9fa;
-            border: 2px solid #dee2e6;
-            border-radius: 12px;
-            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 18px;
             transition: all 0.3s ease;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03);
         }
         
         .subject:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
             border-color: var(--secondary);
         }
         
         .subject.disabled {
-            opacity: 0.7;
-            background: repeating-linear-gradient(
-                45deg,
-                #f8f9fa,
-                #f8f9fa 10px,
-                #e9ecef 10px,
-                #e9ecef 20px
-            );
+            opacity: 0.6;
+            background: #f0f2f5;
             cursor: not-allowed;
         }
         
         .subject.blocked {
-            background: linear-gradient(to bottom right, #ffebee, #ffcdd2);
-            border-color: #e74c3c;
+            background: #ffebee;
+            border-color: #ffcdd2;
         }
         
         .subject.disabled:hover {
             transform: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            border-color: #dee2e6;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03);
+            border-color: #e9ecef;
         }
         
         .subject.approved {
-            background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);
-            border-color: var(--approved-color);
+            background: #e8f5e9;
+            border-color: #a5d6a7;
         }
         
         .subject h3 {
             color: var(--primary);
-            margin-bottom: 12px;
-            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-size: 1.15rem;
             font-weight: 600;
             padding-right: 60px;
         }
@@ -363,10 +376,10 @@
             right: 15px;
             background: var(--secondary);
             color: white;
-            border-radius: 15px;
-            padding: 5px 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
         
         .subject.approved .credits {
@@ -378,112 +391,64 @@
         }
         
         .requirements {
-            margin-top: 15px;
-            padding-top: 15px;
+            margin-top: 12px;
+            padding-top: 12px;
             border-top: 1px dashed #ddd;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #666;
         }
         
         .requirements strong {
             color: var(--primary);
+            font-weight: 600;
         }
         
         .requirements ul {
-            margin-top: 8px;
-            padding-left: 20px;
+            margin-top: 6px;
+            padding-left: 18px;
         }
         
         .requirements li {
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
         }
         
         .english-block {
             display: inline-block;
             background: var(--blocked-color);
             color: white;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin-left: 5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+            font-weight: 500;
         }
         
         #tooltip {
             position: fixed;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s;
-            max-width: 350px;
+            max-width: 320px;
             z-index: 1000;
-            font-size: 1rem;
-            line-height: 1.6;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .subject.req-highlight {
-            background: rgba(230, 126, 34, 0.2);
-            border: 2px solid var(--req-color);
+            background: rgba(230, 126, 34, 0.15);
+            border: 1px solid var(--req-color);
         }
         
         .subject.dep-highlight {
-            background: rgba(39, 174, 96, 0.2);
-            border: 2px solid var(--dep-color);
-        }
-        
-        .info-panel {
-            background: var(--info-bg);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: auto;
-            border: 2px solid #3498db;
-        }
-        
-        .info-panel h2 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .info-panel p {
-            margin-bottom: 10px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: #3498db;
-            color: white;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .social-links a:hover {
-            transform: translateY(-3px);
-            background: #2c3e50;
+            background: rgba(39, 174, 96, 0.15);
+            border: 1px solid var(--dep-color);
         }
         
         .notification {
@@ -499,25 +464,42 @@
             display: none;
             font-weight: 500;
             max-width: 400px;
+            font-size: 1rem;
         }
         
-        @media (max-width: 1600px) {
-            .main-container {
-                flex-direction: column;
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: 1fr;
             }
             
             .sidebar {
-                width: 100%;
+                position: static;
             }
         }
         
         @media (max-width: 768px) {
+            .app-container {
+                padding: 10px;
+            }
+            
             .subjects-container {
                 grid-template-columns: 1fr;
             }
             
             .controls {
                 flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .buttons-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .legend {
+                width: 100%;
+                justify-content: center;
+                margin-top: 15px;
             }
             
             header h1 {
@@ -525,74 +507,87 @@
             }
             
             .credit-counter {
-                padding: 15px;
+                padding: 12px;
             }
             
             #total-credits {
-                font-size: 2.8rem;
+                font-size: 2.4rem;
             }
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
+            
+            .semester-header {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
+    <div class="app-container">
         <!-- Panel lateral izquierdo -->
         <aside class="sidebar">
-            <div class="credit-counter">
-                <h2><i class="fas fa-coins"></i> Créditos Acumulados</h2>
-                <div id="total-credits">0</div>
-            </div>
-            
-            <div class="english-check">
-                <h2><i class="fas fa-language"></i> Requisito de Inglés</h2>
-                <label>
-                    <input type="checkbox" id="english-b1">
-                    ¿Tienes un inglés igual o mayor a B1?
-                </label>
-                <div id="english-warning" class="warning">
-                    Necesitas nivel B1 de inglés para los semestres 7-10
+            <!-- Sección de créditos -->
+            <div class="panel-section">
+                <h2><i class="fas fa-coins"></i> Créditos</h2>
+                <div class="credit-counter">
+                    <h3>Créditos Acumulados</h3>
+                    <div id="total-credits">0</div>
                 </div>
             </div>
             
-            <div class="instructions">
-                <h3><i class="fas fa-info-circle"></i> Instrucciones:</h3>
-                <ul>
-                    <li>Haz clic en las materias para aprobarlas y acumular créditos</li>
-                    <li>Las materias en verde están aprobadas</li>
-                    <li>Las materias en rojo están bloqueadas por requisitos</li>
-                    <li>Marca si tienes nivel B1 de inglés para desbloquear semestres avanzados</li>
-                    <li>Haz clic en una materia aprobada para desaprobarla</li>
-                    <li>Para asignaturas libres, podrás ingresar tus créditos</li>
-                </ul>
+            <!-- Sección de inglés -->
+            <div class="panel-section">
+                <h2><i class="fas fa-language"></i> Requisito de Inglés</h2>
+                <div class="english-check">
+                    <label>
+                        <input type="checkbox" id="english-b1">
+                        Tengo nivel B1 o superior
+                    </label>
+                    <div id="english-warning" class="warning">
+                        Requieres nivel B1 para los semestres 7-10
+                    </div>
+                </div>
             </div>
             
-            <div class="info-panel">
-                <h2><i class="fas fa-user"></i> Información del Programador</h2>
-                <p><i class="fas fa-graduation-cap"></i> Programado por: Br. Pool Héctor García</p>
-                <p><i class="fas fa-hashtag"></i> RRSS: IG: poolkiin</p>
-                <div class="social-links">
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <!-- Sección de instrucciones -->
+            <div class="panel-section">
+                <h2><i class="fas fa-info-circle"></i> Instrucciones</h2>
+                <div class="instructions">
+                    <ul>
+                        <li>Haz clic en las materias para aprobarlas</li>
+                        <li>Las materias aprobadas se muestran en verde</li>
+                        <li>Las materias bloqueadas se muestran en rojo</li>
+                        <li>Marca si tienes nivel B1 de inglés</li>
+                        <li>Haz clic en una materia aprobada para desaprobarla</li>
+                        <li>Para asignaturas libres, ingresa tus créditos</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección del programador -->
+            <div class="panel-section">
+                <h2><i class="fas fa-user"></i> Programador</h2>
+                <div class="programmer-info">
+                    <p><i class="fas fa-code"></i> Desarrollado por: Br. Pool Héctor García</p>
+                    <p><i class="fas fa-hashtag"></i> RRSS: IG: poolkiin</p>
+                    <div class="social-links">
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
             </div>
         </aside>
 
         <!-- Contenido principal -->
-        <div class="content">
+        <main class="content">
             <header>
                 <h1><i class="fas fa-book-open"></i> Malla Curricular - Química en Ciencias de la Salud</h1>
+                <p>Plan de estudios interactivo con seguimiento de créditos y requisitos</p>
+                
                 <div class="controls">
-                    <button id="toggleRequirements"><i class="fas fa-list-check"></i> Mostrar/Ocultar Requisitos</button>
-                    <button id="reset"><i class="fas fa-rotate-left"></i> Reiniciar Progreso</button>
+                    <div class="buttons-container">
+                        <button id="toggleRequirements"><i class="fas fa-list-check"></i> Mostrar/Ocultar Requisitos</button>
+                        <button id="reset"><i class="fas fa-rotate-left"></i> Reiniciar</button>
+                    </div>
                     <div class="legend">
                         <span class="legend-item"><div class="color-box req"></div> Requisito</span>
                         <span class="legend-item"><div class="color-box dep"></div> Dependencia</span>
@@ -603,15 +598,11 @@
             </header>
 
             <div class="semesters-container" id="curriculum-container"></div>
-        </div>
+        </main>
     </div>
     
     <div id="tooltip"></div>
     <div id="notification" class="notification"></div>
-    
-    <footer>
-        Malla Curricular Interactiva &copy; 2023 - Desarrollado para la carrera de Química en Ciencias de la Salud
-    </footer>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -628,311 +619,111 @@
             let approvedSubjects = [];
             let totalCredits = 0;
             let englishB1 = false;
-            let curriculumData = [];
-            const totalProgramCredits = 400; // Total de créditos del programa
+            const totalProgramCredits = 303; // Total de créditos del programa
 
             // Datos de la malla curricular
-            const curriculumDataRaw = [
+            const curriculumData = [
                 {
                     "semester": "1",
                     "subjects": [
-                        {
-                            "name": "Química general y bioinorgánica",
-                            "credits": 8,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Física e introducción a la fisicoquímica",
-                            "credits": 8,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Matemáticas para químicos",
-                            "credits": 8,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Normatividad y legislación",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Contexto de la profesión",
-                            "credits": 4,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Responsabilidad social universitaria",
-                            "credits": 6,
-                            "requirements": []
-                        }
+                        {"name": "Química general y bioinorgánica", "credits": 8, "requirements": []},
+                        {"name": "Física e introducción a la fisicoquímica", "credits": 8, "requirements": []},
+                        {"name": "Matemáticas para químicos", "credits": 8, "requirements": []},
+                        {"name": "Normatividad y legislación", "credits": 6, "requirements": []},
+                        {"name": "Contexto de la profesión", "credits": 4, "requirements": []},
+                        {"name": "Responsabilidad social universitaria", "credits": 6, "requirements": []}
                     ]
                 },
                 {
                     "semester": "2",
                     "subjects": [
-                        {
-                            "name": "Química orgánica en la salud",
-                            "credits": 10,
-                            "requirements": ["Química general y bioinorgánica"]
-                        },
-                        {
-                            "name": "Fisicoquímica aplicada a la salud",
-                            "credits": 10,
-                            "requirements": ["Matemáticas para químicos"]
-                        },
-                        {
-                            "name": "Laboratorio de química básica",
-                            "credits": 8,
-                            "requirements": ["Química general y bioinorgánica"]
-                        },
-                        {
-                            "name": "Cultura maya",
-                            "credits": 6,
-                            "requirements": ["Responsabilidad social universitaria"]
-                        },
-                        {
-                            "name": "Estadística",
-                            "credits": 6,
-                            "requirements": []
-                        }
+                        {"name": "Química orgánica en la salud", "credits": 10, "requirements": ["Química general y bioinorgánica"]},
+                        {"name": "Fisicoquímica aplicada a la salud", "credits": 10, "requirements": ["Matemáticas para químicos"]},
+                        {"name": "Laboratorio de química básica", "credits": 8, "requirements": ["Química general y bioinorgánica"]},
+                        {"name": "Cultura maya", "credits": 6, "requirements": ["Responsabilidad social universitaria"]},
+                        {"name": "Estadística", "credits": 6, "requirements": []}
                     ]
                 },
                 {
                     "semester": "3",
                     "subjects": [
-                        {
-                            "name": "Química bioorgánica",
-                            "credits": 6,
-                            "requirements": ["Química orgánica en la salud"]
-                        },
-                        {
-                            "name": "Análisis químico",
-                            "credits": 9,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Laboratorio de química biológica",
-                            "credits": 7,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Biología celular y molecular",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Administración y gestión en ciencias de la salud",
-                            "credits": 5,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Control y aseguramiento de la Calidad",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Optativa 1 o Libre",
-                            "credits": 0,
-                            "requirements": ["Haber acumulado 80 créditos"],
-                            "isOptional": true
-                        }
+                        {"name": "Química bioorgánica", "credits": 6, "requirements": ["Química orgánica en la salud"]},
+                        {"name": "Análisis químico", "credits": 9, "requirements": []},
+                        {"name": "Laboratorio de química biológica", "credits": 7, "requirements": []},
+                        {"name": "Biología celular y molecular", "credits": 6, "requirements": []},
+                        {"name": "Administración y gestión en ciencias de la salud", "credits": 5, "requirements": []},
+                        {"name": "Control y aseguramiento de la Calidad", "credits": 6, "requirements": []},
+                        {"name": "Optativa 1 o Libre", "credits": 0, "requirements": ["Haber acumulado 80 créditos"], "isOptional": true}
                     ]
                 },
                 {
                     "semester": "4",
                     "subjects": [
-                        {
-                            "name": "Laboratorio de análisis químico",
-                            "credits": 8,
-                            "requirements": ["Análisis químico"]
-                        },
-                        {
-                            "name": "Salud pública y epidemiológica",
-                            "credits": 5,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Farmacognosía",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Bioquímica estructural y metabólica",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Farmacoquímica",
-                            "credits": 6,
-                            "requirements": ["Química bioorgánica"]
-                        },
-                        {
-                            "name": "Anatomía para químicos",
-                            "credits": 6,
-                            "requirements": []
-                        }
+                        {"name": "Laboratorio de análisis químico", "credits": 8, "requirements": ["Análisis químico"]},
+                        {"name": "Salud pública y epidemiológica", "credits": 5, "requirements": []},
+                        {"name": "Farmacognosía", "credits": 6, "requirements": []},
+                        {"name": "Bioquímica estructural y metabólica", "credits": 6, "requirements": []},
+                        {"name": "Farmacoquímica", "credits": 6, "requirements": ["Química bioorgánica"]},
+                        {"name": "Anatomía para químicos", "credits": 6, "requirements": []}
                     ]
                 },
                 {
                     "semester": "5",
                     "subjects": [
-                        {
-                            "name": "Análisis instrumental",
-                            "credits": 9,
-                            "requirements": ["Análisis químico"]
-                        },
-                        {
-                            "name": "Farmacología básica",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Fisiología y patología humana",
-                            "credits": 8,
-                            "requirements": ["Anatomía para químicos"]
-                        },
-                        {
-                            "name": "Genética",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Laboratorio de análisis fisicoquímicos",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Filosofía y metodología de las ciencias",
-                            "credits": 4,
-                            "requirements": ["Estadística"]
-                        }
+                        {"name": "Análisis instrumental", "credits": 9, "requirements": ["Análisis químico"]},
+                        {"name": "Farmacología básica", "credits": 6, "requirements": []},
+                        {"name": "Fisiología y patología humana", "credits": 8, "requirements": ["Anatomía para químicos"]},
+                        {"name": "Genética", "credits": 6, "requirements": []},
+                        {"name": "Laboratorio de análisis fisicoquímicos", "credits": 6, "requirements": []},
+                        {"name": "Filosofía y metodología de las ciencias", "credits": 4, "requirements": ["Estadística"]}
                     ]
                 },
                 {
                     "semester": "6",
                     "subjects": [
-                        {
-                            "name": "Laboratorio de análisis instrumental",
-                            "credits": 8,
-                            "requirements": ["Análisis instrumental"]
-                        },
-                        {
-                            "name": "Farmacología aplicada",
-                            "credits": 8,
-                            "requirements": ["Farmacología básica"]
-                        },
-                        {
-                            "name": "Hematología",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Bacteriología",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Laboratorio de microbiología general",
-                            "credits": 8,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Optativa 2 o Libre",
-                            "credits": 0,
-                            "requirements": ["Haber acumulado 80 créditos"],
-                            "isOptional": true
-                        }
+                        {"name": "Laboratorio de análisis instrumental", "credits": 8, "requirements": ["Análisis instrumental"]},
+                        {"name": "Farmacología aplicada", "credits": 8, "requirements": ["Farmacología básica"]},
+                        {"name": "Hematología", "credits": 6, "requirements": []},
+                        {"name": "Bacteriología", "credits": 6, "requirements": []},
+                        {"name": "Laboratorio de microbiología general", "credits": 8, "requirements": []},
+                        {"name": "Optativa 2 o Libre", "credits": 0, "requirements": ["Haber acumulado 80 créditos"], "isOptional": true}
                     ]
                 },
                 {
                     "semester": "7",
                     "subjects": [
-                        {
-                            "name": "Laboratorio de análisis farmacéutico",
-                            "credits": 6,
-                            "requirements": ["Laboratorio de análisis instrumental"]
-                        },
-                        {
-                            "name": "Micología y Virología",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Toxicología",
-                            "credits": 5,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Parasitología",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Immunología",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Laboratorio de análisis microbiológicos",
-                            "credits": 10,
-                            "requirements": ["Laboratorio de microbiología general"]
-                        }
+                        {"name": "Laboratorio de análisis farmacéutico", "credits": 6, "requirements": ["Laboratorio de análisis instrumental"]},
+                        {"name": "Micología y Virología", "credits": 6, "requirements": []},
+                        {"name": "Toxicología", "credits": 5, "requirements": []},
+                        {"name": "Parasitología", "credits": 6, "requirements": []},
+                        {"name": "Immunología", "credits": 6, "requirements": []},
+                        {"name": "Laboratorio de análisis microbiológicos", "credits": 10, "requirements": ["Laboratorio de microbiología general"]}
                     ]
                 },
                 {
                     "semester": "8",
                     "subjects": [
-                        {
-                            "name": "Tecnología farmacéutica",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Laboratorio de biociencias",
-                            "credits": 6,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Laboratorio de química clínica",
-                            "credits": 10,
-                            "requirements": []
-                        },
-                        {
-                            "name": "Atención farmacéutica",
-                            "credits": 6,
-                            "requirements": []
-                        }
+                        {"name": "Tecnología farmacéutica", "credits": 6, "requirements": []},
+                        {"name": "Laboratorio de biociencias", "credits": 6, "requirements": []},
+                        {"name": "Laboratorio de química clínica", "credits": 10, "requirements": []},
+                        {"name": "Atención farmacéutica", "credits": 6, "requirements": []}
                     ]
                 },
                 {
                     "semester": "9",
                     "subjects": [
-                        {
-                            "name": "Práctica profesional",
-                            "credits": 5,
-                            "requirements": ["Haber acumulado 298 créditos"]
-                        },
-                        {
-                            "name": "Taller de emprendedores",
-                            "credits": 5,
-                            "requirements": []
-                        }
+                        {"name": "Práctica profesional", "credits": 5, "requirements": ["Haber acumulado 298 créditos"]},
+                        {"name": "Taller de emprendedores", "credits": 5, "requirements": []}
                     ]
                 },
                 {
                     "semester": "10",
                     "subjects": [
-                        {
-                            "name": "Servicio social",
-                            "credits": 12,
-                            "requirements": ["Haber acumulado 303 créditos"]
-                        }
+                        {"name": "Servicio social", "credits": 12, "requirements": ["Haber acumulado 303 créditos"]}
                     ]
                 }
             ];
 
-            curriculumData = curriculumDataRaw;
             renderCurriculum();
             setupEventListeners();
 
@@ -1041,15 +832,16 @@
                             
                             if (subjectEl.classList.contains('approved')) {
                                 // Desaprobar la materia
-                                unapproveSubject(subject.name, parseInt(subjectEl.dataset.credits));
+                                unapproveSubject(subject.name, parseInt(subject.credits));
                             } else {
                                 // Materia es optativa/libre?
                                 if (subjectEl.dataset.isOptional === "true") {
-                                    const creditsInput = prompt("Ingrese la cantidad de créditos obtenidos en esta asignatura libre:");
+                                    const creditsInput = prompt("Ingrese los créditos obtenidos en esta asignatura libre:", "0");
                                     const credits = parseInt(creditsInput);
                                     
                                     if (!isNaN(credits) && credits >= 0) {
                                         // Actualizar créditos de la materia
+                                        subject.credits = credits;
                                         subjectEl.dataset.credits = credits;
                                         subjectEl.querySelector('.credits').textContent = credits + " créditos";
                                         approveSubject(subject.name, credits);
@@ -1151,13 +943,15 @@
 
                 // Botón de reinicio
                 resetBtn.addEventListener('click', function() {
-                    approvedSubjects = [];
-                    totalCredits = 0;
-                    totalCreditsEl.textContent = '0';
-                    englishB1 = false;
-                    englishCheckbox.checked = false;
-                    englishWarning.classList.remove('hidden');
-                    renderCurriculum();
+                    if (confirm("¿Estás seguro de que quieres reiniciar todo tu progreso?")) {
+                        approvedSubjects = [];
+                        totalCredits = 0;
+                        totalCreditsEl.textContent = '0';
+                        englishB1 = false;
+                        englishCheckbox.checked = false;
+                        englishWarning.classList.remove('hidden');
+                        renderCurriculum();
+                    }
                 });
             }
 
@@ -1196,6 +990,7 @@
                 if (index > -1) {
                     approvedSubjects.splice(index, 1);
                     totalCredits -= credits;
+                    if (totalCredits < 0) totalCredits = 0;
                     totalCreditsEl.textContent = totalCredits;
                     
                     // Volver a renderizar todo para actualizar el estado de todas las materias
