@@ -477,7 +477,7 @@
         <!-- Contenido principal -->
         <div class="content">
             <header>
-                <h1> Malla Curricular - Químico Farmacéutico Biólogo</h1>
+                <h1>📚 Malla Curricular - Química en Ciencias de la Salud</h1>
                 <div class="controls">
                     <button id="toggleRequirements">Mostrar/Ocultar Requisitos</button>
                     <button id="reset">Reiniciar Progreso</button>
@@ -862,12 +862,13 @@
                         // Verificar si el semestre está bloqueado por inglés
                         const blockedByEnglish = (semester.semester >= 7 && semester.semester <= 10 && !englishB1);
                         
-                        if (!requirementsMet || blockedByEnglish) {
+                        // Solo aplicar bloqueo por inglés a los semestres 7-10
+                        if (blockedByEnglish) {
                             subjectEl.classList.add('disabled');
-                            
-                            if (!requirementsMet && !blockedByEnglish) {
-                                subjectEl.classList.add('blocked');
-                            }
+                            subjectEl.classList.add('blocked');
+                        } else if (!requirementsMet) {
+                            subjectEl.classList.add('disabled');
+                            subjectEl.classList.add('blocked');
                         }
                         
                         let requirementsHTML = '';
@@ -890,7 +891,7 @@
                         subjectEl.addEventListener('click', () => {
                             if (!subjectEl.classList.contains('disabled') && 
                                 !subjectEl.classList.contains('approved')) {
-                                approveSubject(subject.name, parseInt(subject.credits), subjectEl);
+                                approveSubject(subject.name, parseInt(subject.credits));
                             }
                         });
                         
@@ -1004,23 +1005,13 @@
                 return true;
             }
 
-            function approveSubject(name, credits, element) {
+            function approveSubject(name, credits) {
                 approvedSubjects.push(name);
                 totalCredits += credits;
                 totalCreditsEl.textContent = totalCredits;
-                element.classList.add('approved');
                 
-                // Actualizar estado de materias dependientes
-                document.querySelectorAll('.subject').forEach(subjectEl => {
-                    if (!subjectEl.classList.contains('approved') && 
-                        !subjectEl.classList.contains('disabled')) {
-                        const requirements = JSON.parse(subjectEl.dataset.requirements || '[]');
-                        const requirementsMet = checkRequirements(requirements);
-                        
-                        subjectEl.classList.toggle('disabled', !requirementsMet);
-                        subjectEl.classList.toggle('blocked', !requirementsMet);
-                    }
-                });
+                // Volver a renderizar todo para actualizar el estado de todas las materias
+                renderCurriculum();
             }
         });
     </script>
