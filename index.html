@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malla Curricular Interactiva</title>
+    <title>Malla Curricular - Química en Ciencias de la Salud</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -26,6 +26,7 @@
             --sidebar-bg: #f8f9fa;
             --content-bg: #ffffff;
             --header-gradient: linear-gradient(135deg, #1a2980, #26d0ce);
+            --semester-gap: 60px; /* Aumentamos el espacio entre semestres */
         }
         
         body {
@@ -41,7 +42,7 @@
         .app-container {
             display: grid;
             grid-template-columns: 320px 1fr;
-            gap: 20px;
+            gap: 25px;
             max-width: 1600px;
             width: 100%;
         }
@@ -277,10 +278,10 @@
         .blocked { background-color: var(--blocked-color); }
         
         .semesters-container {
-            padding: 20px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 60px;
+            gap: var(--semester-gap); /* Usamos la variable para el espacio entre semestres */
             max-height: calc(100vh - 200px);
             overflow-y: auto;
         }
@@ -288,55 +289,78 @@
         .semester-row {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            position: relative;
+            border: 1px solid #e0e0e0;
         }
         
         .semester-header {
-            padding: 15px 20px;
+            padding: 18px 25px;
             background: var(--primary);
             color: white;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
         
         .semester-header .semester-number {
             background: white;
             color: var(--primary);
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+        }
+        
+        .semester-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .requirements-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        
+        .requirement-tag {
+            padding: 6px 12px;
+            background: #ff9800;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
         
         .subjects-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 18px;
-            padding: 20px;
+            gap: 20px;
+            padding: 25px;
         }
         
         .subject {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 10px;
-            padding: 18px;
+            padding: 20px;
             transition: all 0.3s ease;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
         
         .subject:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             border-color: var(--secondary);
         }
         
@@ -353,7 +377,7 @@
         
         .subject.disabled:hover {
             transform: none;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             border-color: #e9ecef;
         }
         
@@ -364,21 +388,22 @@
         
         .subject h3 {
             color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.15rem;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
             font-weight: 600;
-            padding-right: 60px;
+            padding-right: 70px;
+            line-height: 1.4;
         }
         
         .credits {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 18px;
+            right: 18px;
             background: var(--secondary);
             color: white;
             border-radius: 12px;
-            padding: 4px 12px;
-            font-size: 0.85rem;
+            padding: 5px 15px;
+            font-size: 0.9rem;
             font-weight: 600;
         }
         
@@ -391,10 +416,10 @@
         }
         
         .requirements {
-            margin-top: 12px;
-            padding-top: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 1px dashed #ddd;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: #666;
         }
         
@@ -404,23 +429,23 @@
         }
         
         .requirements ul {
-            margin-top: 6px;
-            padding-left: 18px;
+            margin-top: 8px;
+            padding-left: 20px;
         }
         
         .requirements li {
-            margin-bottom: 4px;
-            font-size: 0.85rem;
+            margin-bottom: 6px;
+            font-size: 0.88rem;
         }
         
         .english-block {
             display: inline-block;
             background: var(--blocked-color);
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-left: 8px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
             font-weight: 500;
         }
         
@@ -428,16 +453,16 @@
             position: fixed;
             background: rgba(0, 0, 0, 0.92);
             color: white;
-            padding: 12px 18px;
-            border-radius: 8px;
+            padding: 15px 20px;
+            border-radius: 10px;
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s;
-            max-width: 320px;
+            max-width: 340px;
             z-index: 1000;
             font-size: 0.95rem;
             line-height: 1.5;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -455,16 +480,16 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 15px 25px;
+            padding: 18px 28px;
             background: linear-gradient(to right, #2ecc71, #27ae60);
             color: white;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
             z-index: 2000;
             display: none;
             font-weight: 500;
-            max-width: 400px;
-            font-size: 1rem;
+            max-width: 420px;
+            font-size: 1.05rem;
         }
         
         @media (max-width: 1200px) {
@@ -516,6 +541,10 @@
             
             .semester-header {
                 font-size: 1.1rem;
+            }
+            
+            :root {
+                --semester-gap: 40px; /* Menos espacio en móviles */
             }
         }
     </style>
@@ -768,12 +797,32 @@
                     
                     semesterHeader.innerHTML = `
                         <div class="semester-number">${semester.semester}</div>
-                        <div>${semester.semester}° Semestre</div>
-                        ${isBlockedByEnglish ? '<div class="english-block">Requiere inglés B1</div>' : ''}
-                        ${isBlockedBySemesters ? '<div class="english-block">Requiere aprobar 1° y 2° semestre</div>' : ''}
+                        <div class="semester-title">${semester.semester}° Semestre</div>
                     `;
                     
                     semesterRow.appendChild(semesterHeader);
+                    
+                    // Agregar información de requisitos si es necesario
+                    if (isBlockedByEnglish || isBlockedBySemesters) {
+                        const requirementsDiv = document.createElement('div');
+                        requirementsDiv.className = 'requirements-info';
+                        
+                        if (isBlockedByEnglish) {
+                            const englishReq = document.createElement('div');
+                            englishReq.className = 'requirement-tag';
+                            englishReq.innerHTML = '<i class="fas fa-language"></i> Requiere Inglés B1';
+                            requirementsDiv.appendChild(englishReq);
+                        }
+                        
+                        if (isBlockedBySemesters) {
+                            const semesterReq = document.createElement('div');
+                            semesterReq.className = 'requirement-tag';
+                            semesterReq.innerHTML = '<i class="fas fa-exclamation-circle"></i> Requiere aprobar 1° y 2° semestre';
+                            requirementsDiv.appendChild(semesterReq);
+                        }
+                        
+                        semesterRow.appendChild(requirementsDiv);
+                    }
                     
                     const subjectsContainer = document.createElement('div');
                     subjectsContainer.className = 'subjects-container';
