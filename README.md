@@ -1,25 +1,15 @@
 # Malla Curricular Interactiva
 
-Visualización interactiva del plan de estudios de Química en Ciencias de la Salud.
+Visualización interactiva del plan de estudios de QFB
 
 ## Características principales
 
-- 🏫 Visualización por semestres
-- 📊 Créditos claramente identificados
-- 🔗 Relaciones de requisitos/dependencias
-- 🔍 Interacciones:
+- Visualización por semestres
+- Créditos claramente identificados
+- Relaciones de requisitos/dependencias
+- Interacciones:
   - Mouse sobre asignaturas para ver detalles
-  - Resaltado de requisitos (naranja) y dependencias (verde)
   - Botón para mostrar/ocultar requisitos
-
-## Cómo usar
-
-1. Clona este repositorio
-2. Abre `index.html` en tu navegador
-3. Explora la malla curricular:
-   - Pasa el mouse sobre cualquier asignatura
-   - Usa el botón superior para mostrar/ocultar requisitos
-   - Observa las relaciones entre asignaturas
 
 ## Tecnologías utilizadas
 
