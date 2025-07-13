@@ -1,5 +1,4 @@
 const materias = [
-  const materias = [
   { id: "qgb", nombre: "Química general y bioinorgánica", creditos: 8, requisitos: [] },
   { id: "fisica", nombre: "Física e introducción a la fisicoquímica", creditos: 8, requisitos: [] },
   { id: "mates", nombre: "Matemáticas para químicos", creditos: 8, requisitos: [] },
