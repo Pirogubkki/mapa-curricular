@@ -26,7 +26,7 @@
             --sidebar-bg: #f8f9fa;
             --content-bg: #ffffff;
             --header-gradient: linear-gradient(135deg, #1a2980, #26d0ce);
-            --semester-gap: 60px; /* Aumentamos el espacio entre semestres */
+            --semester-gap: 40px;
         }
         
         body {
@@ -36,7 +36,6 @@
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
         }
         
         .app-container {
@@ -278,10 +277,10 @@
         .blocked { background-color: var(--blocked-color); }
         
         .semesters-container {
-            padding: 25px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            gap: var(--semester-gap); /* Usamos la variable para el espacio entre semestres */
+            gap: var(--semester-gap);
             max-height: calc(100vh - 200px);
             overflow-y: auto;
         }
@@ -296,10 +295,10 @@
         }
         
         .semester-header {
-            padding: 18px 25px;
+            padding: 20px 25px;
             background: var(--primary);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -309,53 +308,56 @@
         .semester-header .semester-number {
             background: white;
             color: var(--primary);
-            width: 42px;
-            height: 42px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
         
         .semester-title {
             font-weight: 600;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
         }
         
         .requirements-info {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 12px;
+            margin-top: 15px;
+            padding: 0 25px;
+            padding-bottom: 15px;
         }
         
         .requirement-tag {
-            padding: 6px 12px;
+            padding: 8px 15px;
             background: #ff9800;
             color: white;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
         
         .subjects-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
-            padding: 25px;
+            padding: 30px;
         }
         
         .subject {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 10px;
-            padding: 20px;
+            padding: 25px 20px;
             transition: all 0.3s ease;
             position: relative;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            min-height: 180px;
         }
         
         .subject:hover {
@@ -397,13 +399,13 @@
         
         .credits {
             position: absolute;
-            top: 18px;
-            right: 18px;
+            top: 20px;
+            right: 20px;
             background: var(--secondary);
             color: white;
             border-radius: 12px;
-            padding: 5px 15px;
-            font-size: 0.9rem;
+            padding: 6px 15px;
+            font-size: 0.95rem;
             font-weight: 600;
         }
         
@@ -419,7 +421,7 @@
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px dashed #ddd;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             color: #666;
         }
         
@@ -435,7 +437,7 @@
         
         .requirements li {
             margin-bottom: 6px;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
         }
         
         .english-block {
@@ -444,7 +446,7 @@
             color: white;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             margin-left: 10px;
             font-weight: 500;
         }
@@ -505,6 +507,7 @@
         @media (max-width: 768px) {
             .app-container {
                 padding: 10px;
+                grid-template-columns: 1fr;
             }
             
             .subjects-container {
@@ -544,7 +547,7 @@
             }
             
             :root {
-                --semester-gap: 40px; /* Menos espacio en móviles */
+                --semester-gap: 30px;
             }
         }
     </style>
@@ -626,7 +629,9 @@
                 </div>
             </header>
 
-            <div class="semesters-container" id="curriculum-container"></div>
+            <div class="semesters-container" id="curriculum-container">
+                <!-- El contenido de los semestres se generará dinámicamente -->
+            </div>
         </main>
     </div>
     
