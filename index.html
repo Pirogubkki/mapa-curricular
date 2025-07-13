@@ -4,7 +4,446 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malla Curricular Interactiva</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --req-color: #e67e22;
+            --dep-color: #27ae60;
+            --approved-color: #2ecc71;
+            --disabled-color: #bdc3c7;
+            --blocked-color: #e74c3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .content {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .credit-counter {
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .credit-counter h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        #total-credits {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .english-check {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #3498db;
+        }
+
+        .english-check h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .english-check label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .english-check input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3498db;
+        }
+
+        .warning {
+            padding: 15px;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            color: #721c24;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .warning.hidden {
+            display: none;
+        }
+
+        .instructions {
+            font-size: 1rem;
+            color: #6c757d;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .instructions p {
+            margin-bottom: 10px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        #reset {
+            background: linear-gradient(to right, #95a5a6, #7f8c8d);
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .color-box {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+
+        .req { background-color: var(--req-color); }
+        .dep { background-color: var(--dep-color); }
+        .approved { background-color: var(--approved-color); }
+        .blocked { background-color: var(--blocked-color); }
+
+        .semesters-container {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .semester-row {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .semester-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .semester-header .semester-number {
+            background: white;
+            color: #3498db;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .subjects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .subject {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .subject:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+
+        .subject.disabled {
+            opacity: 0.7;
+            background: repeating-linear-gradient(
+                45deg,
+                #f8f9fa,
+                #f8f9fa 10px,
+                #e9ecef 10px,
+                #e9ecef 20px
+            );
+            cursor: not-allowed;
+        }
+
+        .subject.blocked {
+            background: linear-gradient(to bottom right, #ffebee, #ffcdd2);
+            border-color: #e74c3c;
+        }
+
+        .subject.disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-color: #dee2e6;
+        }
+
+        .subject.approved {
+            background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);
+            border-color: var(--approved-color);
+        }
+
+        .subject h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding-right: 60px;
+        }
+
+        .credits {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 15px;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .subject.approved .credits {
+            background: var(--approved-color);
+        }
+
+        .subject.blocked .credits {
+            background: var(--blocked-color);
+        }
+
+        .requirements {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .requirements strong {
+            color: var(--primary);
+        }
+
+        .requirements ul {
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        .requirements li {
+            margin-bottom: 5px;
+        }
+
+        .english-block {
+            display: inline-block;
+            background: var(--blocked-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        #tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            max-width: 350px;
+            z-index: 1000;
+            font-size: 1rem;
+            line-height: 1.6;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .subject.req-highlight {
+            background: rgba(230, 126, 34, 0.2);
+            border: 2px solid var(--req-color);
+        }
+
+        .subject.dep-highlight {
+            background: rgba(39, 174, 96, 0.2);
+            border: 2px solid var(--dep-color);
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .subjects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .credit-counter {
+                padding: 15px;
+            }
+            
+            #total-credits {
+                font-size: 2.8rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
     <div class="main-container">
@@ -21,14 +460,17 @@
                     <input type="checkbox" id="english-b1">
                     ¿Tienes un inglés igual o mayor a B1?
                 </label>
-                <div id="english-warning" class="warning hidden">
+                <div id="english-warning" class="warning">
                     Necesitas nivel B1 de inglés para los semestres 7-10
                 </div>
             </div>
             
             <div class="instructions">
                 <h3>Instrucciones:</h3>
-                <p>Haz clic en las materias para aprobarlas y acumular créditos</p>
+                <p>1. Haz clic en las materias para aprobarlas y acumular créditos</p>
+                <p>2. Las materias en verde están aprobadas</p>
+                <p>3. Las materias en rojo están bloqueadas por requisitos</p>
+                <p>4. Marca si tienes nivel B1 de inglés para desbloquear semestres avanzados</p>
             </div>
         </aside>
 
@@ -43,16 +485,544 @@
                         <span class="legend-item"><div class="color-box req"></div> Requisito</span>
                         <span class="legend-item"><div class="color-box dep"></div> Dependencia</span>
                         <span class="legend-item"><div class="color-box approved"></div> Aprobada</span>
+                        <span class="legend-item"><div class="color-box blocked"></div> Bloqueada</span>
                     </div>
                 </div>
             </header>
 
-            <div class="container" id="curriculum-container"></div>
+            <div class="semesters-container" id="curriculum-container"></div>
         </div>
     </div>
     
     <div id="tooltip"></div>
     
-    <script src="script.js"></script>
+    <footer>
+        Malla Curricular Interactiva &copy; 2023 - Desarrollado para la carrera de Química en Ciencias de la Salud
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('curriculum-container');
+            const tooltip = document.getElementById('tooltip');
+            const toggleBtn = document.getElementById('toggleRequirements');
+            const resetBtn = document.getElementById('reset');
+            const englishCheckbox = document.getElementById('english-b1');
+            const englishWarning = document.getElementById('english-warning');
+            const totalCreditsEl = document.getElementById('total-credits');
+            
+            let showRequirements = true;
+            let approvedSubjects = [];
+            let totalCredits = 0;
+            let englishB1 = false;
+            let curriculumData = [];
+
+            // Datos de la malla curricular
+            const curriculumDataRaw = [
+                {
+                    "semester": "1",
+                    "subjects": [
+                        {
+                            "name": "Química general y bioinorgánica",
+                            "credits": 8,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Física e introducción a la fisicoquímica",
+                            "credits": 8,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Matemáticas para químicos",
+                            "credits": 8,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Normatividad y legislación",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Contexto de la profesión",
+                            "credits": 4,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Responsabilidad social universitaria",
+                            "credits": 6,
+                            "requirements": []
+                        }
+                    ]
+                },
+                {
+                    "semester": "2",
+                    "subjects": [
+                        {
+                            "name": "Química orgánica en la salud",
+                            "credits": 10,
+                            "requirements": ["Química general y bioinorgánica"]
+                        },
+                        {
+                            "name": "Fisicoquímica aplicada a la salud",
+                            "credits": 10,
+                            "requirements": ["Matemáticas para químicos"]
+                        },
+                        {
+                            "name": "Laboratorio de química básica",
+                            "credits": 8,
+                            "requirements": ["Química general y bioinorgánica"]
+                        },
+                        {
+                            "name": "Cultura maya",
+                            "credits": 6,
+                            "requirements": ["Responsabilidad social universitaria"]
+                        },
+                        {
+                            "name": "Estadística",
+                            "credits": 6,
+                            "requirements": []
+                        }
+                    ]
+                },
+                {
+                    "semester": "3",
+                    "subjects": [
+                        {
+                            "name": "Química bioorgánica",
+                            "credits": 6,
+                            "requirements": ["Química orgánica en la salud"]
+                        },
+                        {
+                            "name": "Análisis químico",
+                            "credits": 9,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Laboratorio de química biológica",
+                            "credits": 7,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Biología celular y molecular",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Administración y gestión en ciencias de la salud",
+                            "credits": 5,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Control y aseguramiento de la Calidad",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Optativa 1 o Libre",
+                            "credits": 0,
+                            "requirements": ["Haber acumulado 80 créditos"]
+                        }
+                    ]
+                },
+                {
+                    "semester": "4",
+                    "subjects": [
+                        {
+                            "name": "Laboratorio de análisis químico",
+                            "credits": 8,
+                            "requirements": ["Análisis químico"]
+                        },
+                        {
+                            "name": "Salud pública y epidemiológica",
+                            "credits": 5,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Farmacognosía",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Bioquímica estructural y metabólica",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Farmacoquímica",
+                            "credits": 6,
+                            "requirements": ["Química bioorgánica"]
+                        },
+                        {
+                            "name": "Anatomía para químicos",
+                            "credits": 6,
+                            "requirements": []
+                        }
+                    ]
+                },
+                {
+                    "semester": "5",
+                    "subjects": [
+                        {
+                            "name": "Análisis instrumental",
+                            "credits": 9,
+                            "requirements": ["Análisis químico"]
+                        },
+                        {
+                            "name": "Farmacología básica",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Fisiología y patología humana",
+                            "credits": 8,
+                            "requirements": ["Anatomía para químicos"]
+                        },
+                        {
+                            "name": "Genética",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Laboratorio de análisis fisicoquímicos",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Filosofía y metodología de las ciencias",
+                            "credits": 4,
+                            "requirements": ["Estadística"]
+                        }
+                    ]
+                },
+                {
+                    "semester": "6",
+                    "subjects": [
+                        {
+                            "name": "Laboratorio de análisis instrumental",
+                            "credits": 8,
+                            "requirements": ["Análisis instrumental"]
+                        },
+                        {
+                            "name": "Farmacología aplicada",
+                            "credits": 8,
+                            "requirements": ["Farmacología básica"]
+                        },
+                        {
+                            "name": "Hematología",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Bacteriología",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Laboratorio de microbiología general",
+                            "credits": 8,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Optativa 2 o Libre",
+                            "credits": 0,
+                            "requirements": ["Haber acumulado 80 créditos"]
+                        }
+                    ]
+                },
+                {
+                    "semester": "7",
+                    "subjects": [
+                        {
+                            "name": "Laboratorio de análisis farmacéutico",
+                            "credits": 6,
+                            "requirements": ["Laboratorio de análisis instrumental"]
+                        },
+                        {
+                            "name": "Micología y Virología",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Toxicología",
+                            "credits": 5,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Parasitología",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Immunología",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Laboratorio de análisis microbiológicos",
+                            "credits": 10,
+                            "requirements": ["Laboratorio de microbiología general"]
+                        }
+                    ]
+                },
+                {
+                    "semester": "8",
+                    "subjects": [
+                        {
+                            "name": "Tecnología farmacéutica",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Laboratorio de biociencias",
+                            "credits": 6,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Laboratorio de química clínica",
+                            "credits": 10,
+                            "requirements": []
+                        },
+                        {
+                            "name": "Atención farmacéutica",
+                            "credits": 6,
+                            "requirements": []
+                        }
+                    ]
+                },
+                {
+                    "semester": "9",
+                    "subjects": [
+                        {
+                            "name": "Práctica profesional",
+                            "credits": 5,
+                            "requirements": ["Haber acumulado 298 créditos"]
+                        },
+                        {
+                            "name": "Taller de emprendedores",
+                            "credits": 5,
+                            "requirements": []
+                        }
+                    ]
+                },
+                {
+                    "semester": "10",
+                    "subjects": [
+                        {
+                            "name": "Servicio social",
+                            "credits": 12,
+                            "requirements": ["Haber acumulado 303 créditos"]
+                        }
+                    ]
+                }
+            ];
+
+            curriculumData = curriculumDataRaw;
+            renderCurriculum();
+            setupEventListeners();
+
+            function renderCurriculum() {
+                container.innerHTML = '';
+                
+                curriculumData.forEach(semester => {
+                    const semesterRow = document.createElement('div');
+                    semesterRow.className = 'semester-row';
+                    
+                    const semesterHeader = document.createElement('div');
+                    semesterHeader.className = 'semester-header';
+                    
+                    // Verificar si el semestre está bloqueado por requisito de inglés
+                    const isBlockedByEnglish = (semester.semester >= 7 && semester.semester <= 10 && !englishB1);
+                    
+                    semesterHeader.innerHTML = `
+                        <div class="semester-number">${semester.semester}</div>
+                        <div>${semester.semester}° Semestre</div>
+                        ${isBlockedByEnglish ? '<div class="english-block">Requiere inglés B1</div>' : ''}
+                    `;
+                    
+                    semesterRow.appendChild(semesterHeader);
+                    
+                    const subjectsContainer = document.createElement('div');
+                    subjectsContainer.className = 'subjects-container';
+                    
+                    semester.subjects.forEach(subject => {
+                        const subjectEl = document.createElement('div');
+                        subjectEl.className = 'subject';
+                        subjectEl.dataset.name = subject.name;
+                        subjectEl.dataset.credits = subject.credits;
+                        subjectEl.dataset.requirements = JSON.stringify(subject.requirements);
+                        subjectEl.dataset.semester = semester.semester;
+                        
+                        // Verificar si la materia está aprobada
+                        if (approvedSubjects.includes(subject.name)) {
+                            subjectEl.classList.add('approved');
+                        }
+                        
+                        // Verificar si se cumplen los requisitos
+                        const requirementsMet = checkRequirements(subject.requirements);
+                        
+                        // Verificar si el semestre está bloqueado por inglés
+                        const blockedByEnglish = (semester.semester >= 7 && semester.semester <= 10 && !englishB1);
+                        
+                        if (!requirementsMet || blockedByEnglish) {
+                            subjectEl.classList.add('disabled');
+                            
+                            if (!requirementsMet && !blockedByEnglish) {
+                                subjectEl.classList.add('blocked');
+                            }
+                        }
+                        
+                        let requirementsHTML = '';
+                        if (showRequirements && subject.requirements && subject.requirements.length > 0) {
+                            requirementsHTML = `
+                                <div class="requirements">
+                                    <strong>Requisitos:</strong>
+                                    <ul>${subject.requirements.map(req => `<li>${req}</li>`).join('')}</ul>
+                                </div>
+                            `;
+                        }
+                        
+                        subjectEl.innerHTML = `
+                            <div class="credits">${subject.credits} créditos</div>
+                            <h3>${subject.name}</h3>
+                            ${requirementsHTML}
+                        `;
+                        
+                        // Añadir evento de clic
+                        subjectEl.addEventListener('click', () => {
+                            if (!subjectEl.classList.contains('disabled') && 
+                                !subjectEl.classList.contains('approved')) {
+                                approveSubject(subject.name, parseInt(subject.credits), subjectEl);
+                            }
+                        });
+                        
+                        subjectsContainer.appendChild(subjectEl);
+                    });
+                    
+                    semesterRow.appendChild(subjectsContainer);
+                    container.appendChild(semesterRow);
+                });
+            }
+
+            function setupEventListeners() {
+                // Toggle de requisitos
+                toggleBtn.addEventListener('click', () => {
+                    showRequirements = !showRequirements;
+                    renderCurriculum();
+                });
+
+                // Tooltip y resaltado de relaciones
+                document.addEventListener('mouseover', function(e) {
+                    const subject = e.target.closest('.subject');
+                    if (!subject) return;
+                    
+                    if (subject.classList.contains('disabled')) return;
+                    
+                    const name = subject.dataset.name;
+                    const credits = subject.dataset.credits;
+                    const requirements = JSON.parse(subject.dataset.requirements || '[]');
+                    
+                    // Mostrar tooltip
+                    tooltip.innerHTML = `
+                        <strong>${name}</strong><br>
+                        <em>${credits} créditos</em>
+                        ${requirements && requirements.length > 0 ? 
+                            `<br><br><strong>Requisitos:</strong><br>${requirements.join(', ')}` : ''
+                        }
+                    `;
+                    tooltip.style.opacity = 1;
+                    tooltip.style.left = `${e.pageX + 15}px`;
+                    tooltip.style.top = `${e.pageY + 15}px`;
+                    
+                    // Resaltar requisitos
+                    if (requirements && requirements.length > 0) {
+                        document.querySelectorAll('.subject').forEach(el => {
+                            if (requirements.includes(el.dataset.name) && !el.classList.contains('disabled')) {
+                                el.classList.add('req-highlight');
+                            }
+                        });
+                    }
+                    
+                    // Resaltar dependencias
+                    document.querySelectorAll('.subject').forEach(el => {
+                        const reqs = JSON.parse(el.dataset.requirements || '[]');
+                        if (reqs.includes(name)) {
+                            el.classList.add('dep-highlight');
+                        }
+                    });
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = `${e.pageX + 15}px`;
+                    tooltip.style.top = `${e.pageY + 15}px`;
+                });
+                
+                document.addEventListener('mouseout', function(e) {
+                    if (!e.relatedTarget || !e.relatedTarget.closest('.subject')) {
+                        tooltip.style.opacity = 0;
+                        document.querySelectorAll('.subject').forEach(el => {
+                            el.classList.remove('req-highlight', 'dep-highlight');
+                        });
+                    }
+                });
+
+                // Control de inglés B1
+                englishCheckbox.addEventListener('change', function() {
+                    englishB1 = this.checked;
+                    englishWarning.classList.toggle('hidden', englishB1);
+                    renderCurriculum();
+                });
+
+                // Botón de reinicio
+                resetBtn.addEventListener('click', function() {
+                    approvedSubjects = [];
+                    totalCredits = 0;
+                    totalCreditsEl.textContent = '0';
+                    englishB1 = false;
+                    englishCheckbox.checked = false;
+                    englishWarning.classList.remove('hidden');
+                    renderCurriculum();
+                });
+            }
+
+            function checkRequirements(requirements) {
+                if (!requirements || requirements.length === 0) return true;
+                
+                for (const req of requirements) {
+                    // Verificar requisitos de créditos
+                    if (req.includes('créditos')) {
+                        const creditMatch = req.match(/\d+/);
+                        if (creditMatch) {
+                            const requiredCredits = parseInt(creditMatch[0]);
+                            if (totalCredits < requiredCredits) return false;
+                        }
+                    } 
+                    // Verificar materias requeridas
+                    else if (!approvedSubjects.includes(req)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+
+            function approveSubject(name, credits, element) {
+                approvedSubjects.push(name);
+                totalCredits += credits;
+                totalCreditsEl.textContent = totalCredits;
+                element.classList.add('approved');
+                
+                // Actualizar estado de materias dependientes
+                document.querySelectorAll('.subject').forEach(subjectEl => {
+                    if (!subjectEl.classList.contains('approved') && 
+                        !subjectEl.classList.contains('disabled')) {
+                        const requirements = JSON.parse(subjectEl.dataset.requirements || '[]');
+                        const requirementsMet = checkRequirements(requirements);
+                        
+                        subjectEl.classList.toggle('disabled', !requirementsMet);
+                        subjectEl.classList.toggle('blocked', !requirementsMet);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
