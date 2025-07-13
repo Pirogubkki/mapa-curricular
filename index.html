@@ -7,18 +7,49 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>📚 Malla Curricular - Química en Ciencias de la Salud</h1>
-        <div class="controls">
-            <button id="toggleRequirements">Mostrar/Ocultar Requisitos</button>
-            <div class="legend">
-                <span class="legend-item"><div class="color-box req"></div> Requisito</span>
-                <span class="legend-item"><div class="color-box dep"></div> Dependencia</span>
+    <div class="main-container">
+        <!-- Panel lateral izquierdo -->
+        <aside class="sidebar">
+            <div class="credit-counter">
+                <h2>Créditos Acumulados</h2>
+                <div id="total-credits">0</div>
             </div>
-        </div>
-    </header>
+            
+            <div class="english-check">
+                <h2>Requisito de Inglés</h2>
+                <label>
+                    <input type="checkbox" id="english-b1">
+                    ¿Tienes un inglés igual o mayor a B1?
+                </label>
+                <div id="english-warning" class="warning hidden">
+                    Necesitas nivel B1 de inglés para los semestres 7-10
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>Instrucciones:</h3>
+                <p>Haz clic en las materias para aprobarlas y acumular créditos</p>
+            </div>
+        </aside>
 
-    <div class="container" id="curriculum-container"></div>
+        <!-- Contenido principal -->
+        <div class="content">
+            <header>
+                <h1>📚 Malla Curricular - Química en Ciencias de la Salud</h1>
+                <div class="controls">
+                    <button id="toggleRequirements">Mostrar/Ocultar Requisitos</button>
+                    <button id="reset">Reiniciar Progreso</button>
+                    <div class="legend">
+                        <span class="legend-item"><div class="color-box req"></div> Requisito</span>
+                        <span class="legend-item"><div class="color-box dep"></div> Dependencia</span>
+                        <span class="legend-item"><div class="color-box approved"></div> Aprobada</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container" id="curriculum-container"></div>
+        </div>
+    </div>
     
     <div id="tooltip"></div>
     
