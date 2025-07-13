@@ -5,6 +5,8 @@
     --light: #ecf0f1;
     --req-color: #e67e22;
     --dep-color: #27ae60;
+    --approved-color: #2ecc71;
+    --disabled-color: #bdc3c7;
 }
 
 * {
@@ -21,6 +23,95 @@ body {
     padding: 20px;
 }
 
+.main-container {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 280px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.content {
+    flex: 1;
+}
+
+.credit-counter {
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.credit-counter h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+#total-credits {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.english-check {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.english-check h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.english-check label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.english-check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.warning {
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.warning.hidden {
+    display: none;
+}
+
+.instructions {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.instructions h3 {
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -33,9 +124,10 @@ header {
 .controls {
     margin-top: 15px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 button {
@@ -53,15 +145,26 @@ button:hover {
     background-color: #2980b9;
 }
 
+#reset {
+    background-color: #95a5a6;
+}
+
+#reset:hover {
+    background-color: #7f8c8d;
+}
+
 .legend {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
+    justify-content: center;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 0.9rem;
 }
 
 .color-box {
@@ -72,6 +175,7 @@ button:hover {
 
 .req { background-color: var(--req-color); }
 .dep { background-color: var(--dep-color); }
+.approved { background-color: var(--approved-color); }
 
 .container {
     display: flex;
@@ -86,6 +190,11 @@ button:hover {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.semester.disabled {
+    opacity: 0.6;
+    background-color: #f8f9fa;
 }
 
 .semester h2 {
@@ -117,6 +226,23 @@ button:hover {
     border-color: var(--secondary);
 }
 
+.subject.disabled {
+    opacity: 0.5;
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.subject.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+
+.subject.approved {
+    background-color: rgba(46, 204, 113, 0.15);
+    border-color: var(--approved-color);
+}
+
 .subject h3 {
     color: var(--primary);
     margin-bottom: 8px;
@@ -133,6 +259,10 @@ button:hover {
     padding: 2px 10px;
     font-size: 0.8rem;
     font-weight: bold;
+}
+
+.subject.approved .credits {
+    background: var(--approved-color);
 }
 
 .requirements {
@@ -165,6 +295,16 @@ button:hover {
 .subject.dep-highlight {
     background-color: rgba(39, 174, 96, 0.15);
     border: 2px solid var(--dep-color);
+}
+
+@media (max-width: 992px) {
+    .main-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
